@@ -85,7 +85,7 @@ section {
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 
     h2 {
         font-size: 25px;
@@ -98,12 +98,12 @@ section {
 
     button {
         font-size: 16px;
-        width: 70%;
+        width: 45%;
         margin: 0px auto;
     }
     
     .btn1 {
-        width: 80vw;
+        width: 90vw;
     }
 
     .divider {
