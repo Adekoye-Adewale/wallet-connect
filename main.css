@@ -36,5 +36,50 @@ button {
 }
 
 button:hover {
+    background-color: #003f9e;
+    border: 2px solid #003f9e;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn1 {
+    width: 400px;
+    display: flex;
+    margin: 0px auto;
+    justify-content: space-between;
+}
+
+.divider {
+    padding: 30px 0px;
+}
+
+section {
+    margin: 0px auto;
+    width: 1200px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 40px;
+    background-color: #121346;
+    padding: 10px;
   }
+
+.box {
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+    padding: 20px;
+}
+
+.box-title {
+    font-size: 25px;
+    color: #bfbfe0;
+    line-height: 0.5rem;
+}
+
+.box-text {
+    font-size: 18px;
+    color: #7e7e7e;
+}
