@@ -83,3 +83,51 @@ section {
     font-size: 18px;
     color: #7e7e7e;
 }
+
+
+@media (max-width: 700px) {
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .main-text {
+        font-size: 16px;
+        width: 75%;
+    }
+
+    button {
+        font-size: 16px;
+        width: 70%;
+        margin: 0px auto;
+    }
+    
+    .btn1 {
+        width: 80vw;
+    }
+
+    .divider {
+        padding: 20px 0px;
+    }
+
+    section {
+        width: 80vw;
+    }
+
+    .grid-container {
+        display: block;
+      }
+
+    .box-title {
+        font-size: 18px;
+        color: #bfbfe0;
+        line-height: 1.5rem;
+    }
+    
+    .box-text {
+        font-size: 14px;
+        color: #7e7e7e;
+    }
+    
+
+}
