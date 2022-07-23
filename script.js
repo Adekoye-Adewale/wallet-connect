@@ -31,10 +31,23 @@ var account;
     }
 
     var signTX = async () => {
-      // Close provider session
+      // Sign button
       await sign('Sign This My Message');
     }
     
+    var contract = async (abi, address) => {
+      if (w3) {
+        return new w3.eth.Contract(abi, address)
+      } else {
+        return false
+      }
+    }
+
+    var send = async () => {
+      // Send transaction button
+      await w3.eth.sendTransaction({ from: account, to: address, value: '1000000000000000000' })
+    }
+
 
     var disconnect = async () => {
       // Close provider session
