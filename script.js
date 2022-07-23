@@ -22,31 +22,19 @@ var account;
       account = accounts[0]; // get the primary account
     }
 
-
     var sign = async (msg) => {
       if (w3) {
         return await w3.eth.personal.sign(msg, account)
       } else {
         return false
       }
-
-    }    
-
-    var contract = async (abi, address) => {
-      if (w3) {
-        return new w3.eth.Contract(abi, address)
-      } else {
-        return false
-      }
     }
 
-    var send = async (account, address) => {
-      if (w3) {
-        return await w3.eth.sendTransaction({ from: account, to: address, value: '1000000000000000000' })
-      } else {
-        return false
-      }
+    var signTX = async () => {
+      // Close provider session
+      await sign('Sign This My Message');
     }
+    
 
     var disconnect = async () => {
       // Close provider session
