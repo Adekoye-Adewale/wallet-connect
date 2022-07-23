@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wallet Connect Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="./test.js"></script>
+  <link rel="stylesheet" href="./test.css">
+</head>
+
+<body>
+
+    <header>
+        <h1 class="title">WalletConnect</h1>
+        <p id="subheader"></p>
+      </header>
+  
+      <main>
+        <section class="buttons">
+          <button id="connectWC">Login</button>
+          <button id="btn-logout">Logout</button>
+          <button id="btn-enable">Enable web3</button>
+          <button id="btn-call">Test sign call</button>
+        </section>
+        <section class="result" id="result"></section>
+      </main>
+
+</body>

@@ -32,14 +32,6 @@ var account;
 
     }    
 
-    async function sign(msg) {
-      try {
-        web3 = await sign('Sign This Message');
-      } catch (error) {
-        console.log('Not Signed', error);
-      }
-    }
-
     var contract = async (abi, address) => {
       if (w3) {
         return new w3.eth.Contract(abi, address)
@@ -48,9 +40,9 @@ var account;
       }
     }
 
-    var send = async () => {
+    var send = async (account, address) => {
       if (w3) {
-        return await w3.eth.sendTransaction({ from: account, to: address, value: '10' })
+        return await w3.eth.sendTransaction({ from: account, to: address, value: '1000000000000000000' })
       } else {
         return false
       }
