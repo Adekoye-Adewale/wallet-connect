@@ -61,4 +61,52 @@ function renderApp() {
     resultBox.innerText = result;
   }
 
+
+
+
+  async function authenticate() {
+    try {
+      user = await provider.enable();
+      web3 = await web3.eth.getAccounts();
+      account = accounts[0];
+    } catch (error) {
+      console.log('authenticate failed', error);
+    }
+    renderApp();
+  }
+  
+  async function logout() {
+    try {
+        await provider.disconnect()
+    } catch (error) {
+      console.log('logOut failed', error);
+    }
+    result = '';
+    renderApp();
+  }
+  
+  async function testCall() {
+    try {
+      result = await sign('Hello world', user.get('ethAddress'));
+    } catch (error) {
+      console.log('testCall failed', error);
+    }
+    renderApp();
+  }
+  
+  async function enableWeb3() {
+    try {
+      web3 =  await w3.eth.sendTransaction({ from: account, to: address, value: '1000000000000000000' })
+    } catch (error) {
+      console.log('testCall failed', error);
+    }
+    renderApp();
+  }
+  
+  authButton.onclick = authenticate;
+  logoutButton.onclick = logout;
+  callButton.onclick = testCall;
+  enableButton.onclick = enableWeb3;
+  
+  renderApp();
   
