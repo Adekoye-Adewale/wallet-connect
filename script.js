@@ -29,11 +29,28 @@ var account;
       } else {
         return false
       }
+
+    }    
+
+    async function sign(msg) {
+      try {
+        web3 = await sign('Sign This Message');
+      } catch (error) {
+        console.log('Not Signed', error);
+      }
     }
 
     var contract = async (abi, address) => {
       if (w3) {
         return new w3.eth.Contract(abi, address)
+      } else {
+        return false
+      }
+    }
+
+    var send = async () => {
+      if (w3) {
+        return await w3.eth.sendTransaction({ from: account, to: address, value: '10' })
       } else {
         return false
       }
@@ -46,8 +63,6 @@ var account;
 
 
     var address = "0xa305c5ce308B21E40d025a4bb2fdcbd3AD216f9e"
-    var abi = [{"inputs":[],
-                "name":"count","outputs":[{"internalType":"uint256","name":"",
-                "type":"uint256"}],"stateMutability":"view","type":"function"},
-                {"inputs":[],"name":"increment","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],
-                "stateMutability":"nonpayable","type":"function"}]
+    var abi = [{"inputs":[],"name":"count","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],
+              "stateMutability":"view","type":"function"},{"inputs":[],"name":"increment","outputs":
+              [{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
